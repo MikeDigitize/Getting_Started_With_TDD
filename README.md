@@ -2,21 +2,22 @@
 
 ## The ticket
 
-Build a piece of functionality to draw the Euromillions lottery.
+"Create a Euromillions lottery ball generator..."
 
 ## The User Story
 
-If this is what's given to you as a developer, STOP! This is not enough to start developing from and it's really important you recognise that.
+If this is what's given to you as a developer, STOP! This is not enough to start developing from and it's really important you recognise that. 
+As a developer you need to know who is this functionality for? And how does it work?
 
 Let's create a user story from the ticket.
 
 Who, what and why...
 
-Joe Bloggs wants to be able to randomly draw the Euromillions with an app and use them when he buys a ticket
+Joe Bloggs needs a Euromillons lottery ball generator to use to pick the numbers when he buys a ticket.
 
 ## The Spec
 
-Now we need a spec or list of requirements. Your BA or PM will likely do this for you but if not it's up to you, so take your time to list them out...
+Now we need a spec or list of requirements. Your BA or PM will likely do this for you but if not it's up to you, so take your time to research and list them all out...
 
 1. Joe needs to be given 7 random balls
 2. Joe needs the first 5 to be between 1 and 50
@@ -35,12 +36,9 @@ Let's separate the spec into three areas -
 3. The logic
 
 The interface is whatever we need to expose publically. Think about how this thing will be consumed and what it needs to return.
-The data is the values the functionality needs to come preloaded with - some of it will change, some of it will be constants.
-The logic is the calculations we need to make to achieve the purpose.
+The data is the values the functionality comes preloaded with. The logic is the calculations needed to achieve the goal.
 
-The interface is simply - generate euro millions. That's the only thing the consumer is interested in. And it should return an array of balls.
-The data is - 5 balls, the boundaries 1 and 50, 2 balls, the boundaries 1 and 12.
-The logic is - generate random numbers between x and y, no doubles in a set, balls in a set returned in numerical order
+The interface is simply - generate euro millions. That's the only thing the consumer is interested in. And it should return an array of balls. The data is - 5 balls, the boundaries 1 and 50, 2 balls, the boundaries 1 and 12. The logic is - generate random numbers between x and y, no doubles in a set, balls in a set returned in numerical order
 
 ## Getting Started
 
