@@ -13,7 +13,7 @@ Let's create a user story from the ticket.
 
 Who, what and why...
 
-Joe Bloggs needs a Euromillons lottery ball generator to use to pick the numbers when he buys a ticket.
+Joe Bloggs needs a Euromillons lottery ball generator to pick his numbers when he buys a ticket.
 
 ## The Spec
 
