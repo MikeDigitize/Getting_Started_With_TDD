@@ -1,0 +1,16 @@
+{
+  "name": "getting_started_with_tdd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MikeDigitize/Getting_Started_With_TDD",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0"
+  },
+  "scripts": {
+    "test": "jest --watchAll --verbose"
+  }
+}
