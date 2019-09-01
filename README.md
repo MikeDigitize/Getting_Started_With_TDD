@@ -63,7 +63,7 @@ So now we start by writing the failing test right? That's how TDD works? Well, n
 
 So we're perfectly entitled to start prototyping it in code.
 Often, lesser experienced developers find this easier than starting cold, with a test.
-Think of it as sending a scouting party out to do a bit of recon about what's in store ahead. When we get the intel back we're in a much better place to start writing tests.
+Think of it as sending out a scouting party to do a bit of recon about what's in store ahead. When we get the intel back we'll be in a better place to start writing tests.
 
 ## Prototyping
 
@@ -73,7 +73,7 @@ Remember the first question to ask as you're writing code?
 
 To make it easy to test, we can start by exposing **everything**. 
 
-If everything is exposed we have access to check everything is behaving in the way we expect as we build.
+If everything is exposed we have access to check everything is behaving in the way we expect as we build and test.
 We can do this in JavaScript through the use of an object.
 Ultimately we want to expose only the draw Euromillions functionality, as we identified when assessing the interface earlier, but for now this is fine. We'll refactor as we go along to improve the code and hide away implementation details.
 
