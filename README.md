@@ -135,7 +135,7 @@ drawEuroMillions() {
 ```
 First test passed!
 
-What we're putting into the balls array is the `i` value as each loop goes round. This obviously isn't what we ultimately what to return, but for now it's enough to get the test passing. Within the code we now have the foundation for the 5 standard and 2 bonus balls functionality.
+What we're putting into the balls array is the `i` value as each loop goes round. This obviously isn't what we ultimately want to return, but for now it's enough to get the test passing. Within the code we now have the foundation for the 5 standard and 2 bonus balls functionality.
 
 Next requirement.
 
