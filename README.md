@@ -13,7 +13,7 @@ So let's look at it through the lens of a user. Let's create a user story from t
 
 *A good user story should tell us who, what and why...*
 
-Joe wants a Euromillons lottery ball generator that picks his numbers for him when he plays the lottery.
+Joe wants a Euromillons lottery ball generator to pick his numbers when he plays the lottery.
 
 ## The Spec
 
