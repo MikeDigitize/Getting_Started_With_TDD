@@ -2,8 +2,8 @@ function getRandomNumberUpTo(max) {
 	return Math.floor(Math.random() * max) + 1;
 }
 
-function orderNumerically(numbers) {
-	return numbers.sort((a, b) => a - b);
+function orderNumerically(balls) {
+	return balls.sort((a, b) => a - b);
 }
 
 function getUniqueBalls(amount, max) {
