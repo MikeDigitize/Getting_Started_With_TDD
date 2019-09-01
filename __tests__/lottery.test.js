@@ -42,6 +42,17 @@ describe("Euro millions generator...", function() {
 
     });
 
+    test("...Joe expects top get whole numbers", function() {
+
+        for(let i = 0; i < 500; i++) {
+            let result = lottery.drawEuroMillions();
+            result.forEach(function(ball) {
+                expect(ball % 1).toBe(0);
+            });
+        }
+
+    });
+
     test("...Joe expects to get a 50 or a 1 from the first set if he draws 500 times", function() {
 
         let results = [];
