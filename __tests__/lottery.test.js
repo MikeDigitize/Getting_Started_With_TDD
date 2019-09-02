@@ -1,6 +1,6 @@
 import lottery from '../src/lottery';
 
-describe("Euro millions generator...", function() {
+describe("Joe's Euro millions lottery ball generator...", function() {
 
     test("...Joe needs to be given 7 balls", function() {
         expect(lottery.drawEuroMillions()).toHaveLength(7);
@@ -42,7 +42,7 @@ describe("Euro millions generator...", function() {
 
     });
 
-    test("...Joe expects top get whole numbers", function() {
+    test("...Joe expects to get whole numbers", function() {
 
         for(let i = 0; i < 500; i++) {
             let result = lottery.drawEuroMillions();
@@ -108,6 +108,7 @@ describe("Euro millions generator...", function() {
         for(let i = 0; i < 500; i++) {
             
             let result = lottery.drawEuroMillions();
+            console.log(result);
             let firstFive = result.slice(0, 5);
             let lastTwo = result.slice(5, 7);
             
