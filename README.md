@@ -19,17 +19,17 @@ It turns out this ticket has come from Joe. Joe wants a Euromillons lottery ball
 
 ## The Spec
 
-Ok we have a user. Now we need to understand how this thing works. We need a spec or list of requirements. You should get these as part of the ticket but, if not, it's up to you, so take your time to research and list them all out.
+Ok we have a user. We have a consumer. Now we need to understand how this thing works. We need a spec or list of requirements. We should get these as part of the ticket but, if not, it's up to us, so let's take our time to research and list them all out.
 
 What do we need to do to give Joe his Euromillions generator?
 
-1. Joe needs to be given 7 random balls
-2. Joe needs the first 5 to be between 1 and 50
-3. Joe needs the last 2 to be between 1 and 12
+1. Joe expects to be given 7 balls
+2. Joe expects the first 5 to be between 1 and 50
+3. Joe expects the last 2 to be between 1 and 12
 4. Joe cannot receive doubles in a set, but it's ok for doubles across the two sets
-5. Joe needs the balls in a set to be returned in numerical order
+5. Joe expects the balls in a set to be returned in numerical order
 
-Ok great, we now have a user story with a spec! Now we know what's expected we can start to plan how to approach it.
+Ok great, we now have a user and a spec! Now we know what's required we can start to plan how to approach it.
 
 ## The Approach
 
@@ -40,18 +40,23 @@ There's lots of ways to approach this type of situation, but one I've found usef
 3. The logic
 
 The interface is whatever we need to expose publically.  
+
 Think about how this thing will be consumed and what it needs to return.  
-The data is what values the functionality comes preloaded with.  
-Some data will be constant, other data will be dynamic.  
+
+The data is what values the functionality comes preloaded with. Some data will be constant, other data will be dynamic.  
+
 And the logic is what calculations / process the data needs to go through to achieve the goal.
 
-The interface is simply - draw the Euromillions. That's the only thing the consumer is interested in. And it should return an array of numbers. 
+The interface is simple - draw the Euromillions. That's the only thing our user is interested in. And it should return numbers. 
 
 The data it comes loaded with is - 
 * 5 balls
 * the boundaries 1 and 50 
 * 2 balls
 * the boundaries 1 and 12
+
+
+And the data it returns is an array of balls.
   
 The logic is - 
 * generate x amount of random numbers between y and z
@@ -66,7 +71,7 @@ So now we start by writing the failing test right? That's how TDD works? Well, n
 
 So we're perfectly entitled to start prototyping it in code.
 Often developers find this way easier than starting cold, with a test.
-Think of it as sending out a scouting party to gather some recon about what's in store ahead. When we get the intel back we'll be in a better place to start writing tests.
+Think of it as sending out a scouting party to gather some recon about what's in store ahead. When we get the intel back we'll be better equipped to start writing the right tests.
 
 ## Prototyping
 
@@ -76,9 +81,12 @@ Remember the first question to ask as you're writing code?
 
 To make it easy to test, we can start by exposing **everything**. 
 
-If everything is exposed we can check everything is behaving in the way we expect, as we build and test.  
-We can do this in JavaScript through use of an object.  
-Ultimately we want to expose just the draw Euromillions functionality, as we identified earlier, but for now this is fine.   
+If everything is exposed we can check everything is behaving in the way we expect whilst we build and test.  
+
+We can do this in JavaScript through an object.  
+
+Ultimately we want to expose just the draw Euromillions functionality, as we identified earlier, but for now this is fine.  
+
 We'll refactor as we go, improving the code and hiding away implementation details as we progress.
 
 ```javascript
@@ -105,8 +113,8 @@ var lottery = {
 ```
 
 This is a rough approximation of what the functionality should contain.
-All the key pieces of data are accessible on the object.  
-There's consequences for doing this, as we'll see later, but the benefits are worth it. 
+
+All the key pieces of data are accessible on the object. There's consequences for doing this, as we'll see later, but the benefits are worth it. 
 
 *Is this easy to test?*
 
@@ -120,12 +128,12 @@ Ok so let's write a test.
 
 Let's take the first requirement as the test. 
 
-*Joe needs to be given 7 random balls.*
+*Joe needs to be given 7 balls.*
 
-We can test that the `drawEuroMillions` method gives us an array of 7 items. The test fails so let's fix it.
+We can test that the `drawEuroMillions` method gives us an array of 7 items. The test fails so let's write the code.
 
 ```javascript
-test("...Joe needs to be given 7 balls", function() {
+test("...Joe expects to be given 7 balls", function() {
     expect(lottery.drawEuroMillions()).toHaveLength(7);
 });
 
@@ -142,8 +150,10 @@ drawEuroMillions() {
 First test passed!
 
 We're putting the `i` value into the balls array with each loop.  
-This obviously isn't what we ultimately want to return, but for now it's enough to get the test passing.  
-Within the code we now have the foundation for the 5 standard balls and 2 bonus balls functionality.
+
+This obviously isn't what we ultimately want to return, but for now it's enough to get the test passing. And that's all we need. We don't have to concern ourselves with how this thing will ultimately work and create something clean and elegant from the off, we can just systematically chip away at it, piece by piece, and it will magically start to take shape.
+
+The 2 for loops now act as the foundation for the 5 standard balls and 2 bonus balls functionality.
 
 Next requirement.
 
@@ -158,7 +168,7 @@ And we write a test to get the first 5 balls and ensure they're between 1 and 50
 Write the test, then do enough to make the test pass.
 
 ```javascript
-test("...Joe needs the first 5 to be between 1 and 50", function() {
+test("...Joe expects the first 5 to be between 1 and 50", function() {
 
     let result = lottery.drawEuroMillions();
     let firstFive = result.slice(0, 5);
@@ -189,7 +199,7 @@ getRandomNumberUpTo(max) {
 And let's do the same for the bonus balls.
 
 ```javascript
-test("...Joe needs the last 2 to be between 1 and 12", function() {
+test("...Joe expects the last 2 to be between 1 and 12", function() {
 
     let result = lottery.drawEuroMillions();
     let lastTwo = result.slice(5, 7);
@@ -213,12 +223,12 @@ drawEuroMillions() {
     return this.balls;
 }
 ```
-Ok so now we are three tests deep and everything's passing.
+Ok so we're now three tests deep and everything's passing.
 
 ## Keep Tests Decoupled
 
 At this stage it's worth reminding ourselves of a golden rule of testing.  
-Ensure our tests can run in any order, with any initialising values, and still pass.
+Ensure tests can run in any order, with any initialising values, and still pass.
 
 In other words *make sure there are no dependencies or coupling between tests.*
 
@@ -228,14 +238,14 @@ If we re-order our tests, moving the length check test, the suite goes red.
 
 Whoops!
 We've identified a problem.  
-And this is the consequence mentioned earlier - a symptom of exposing everything via an object.
+And this is the consequence of over exposing mentioned earlier - a symptom of exposing everything via an object.
 
 Every time Joe draws the lottery, the array of balls gets bigger. 
 We're adding to an array that never gets emptied.
 
 Explicitly mapping all the data and functionality was useful when we started, whilst we got our bearings. Now we have a better understanding of the lay of the land it's not quite as important or necessary any more.
 
-Let's fix it by refactoring the persistant balls array to one that gets initialised on every call. We don't need access to it directly on the object, we can just check the array when it's returned when `drawEuroMillions` gets called instead.
+Let's fix it by refactoring the persistant balls array to one that gets initialised on every call. We really don't need access to it directly on the object, we can just check the array when it's returned when `drawEuroMillions` gets called instead.
 
 ```javascript
 drawEuroMillions() {
@@ -287,13 +297,9 @@ Hopefully this is helping demonstrate that testing is an organic journey.
 Our code evolves as we learn more about the inner workings of our functionality and refactor accordingly as we progress.
 Our tests are there to prod and poke at the functionality to make sure it stands up to scrutiny.
 
-As long as we follow some general principles we will end up with the right result.
+As long as we follow our general principles we'll end up with the right result.
 
-*Is this easy to test?*  
-*What's the minimum I need to test to give me confidence?*  
-*If I return in three months' time, will this test suite make sense?*  
-
-## Testing Enough To Give Us Confidence
+## Testing Makes Us Think
 
 Ok, so back to the detail of the `drawEuroMillions` method.
 
@@ -304,11 +310,13 @@ And *could* return a 1?
 
 We're testing the results are between boundaries, but not whether the result could be a boundary.
 
-Infact, we really don't know exactly what this thing is giving us back yet. Let's fix that.
+Infact, we really don't know exactly what this thing is giving us back yet.
+
+Let's fix that.
 
 *"What's the minumum I need to test to give me confidence?"*
 
-We need to know more about what's being returned for us to feel confident.
+We need to know more about what's being returned for us to feel confident. Being test driven means we are forced to *really* think about how we write our code, which is great.
 
 ## Implementation vs. Interface
 
@@ -325,15 +333,12 @@ Another golden rule of testing.
 *Prefer to test the interface, not the implementation detail.*
 
 Things can change over time. We might refactor the implementation.
-But as long as our tests are passing we should be happy. 
-It means we only need to import one thing to test into our test suite, making it easier to read and manage.
-And plus, if we have tests around the implementation, we're going to have to update the tests every time we refactor.
-
-So ideally we should just test our interface. Consumer is king! As long as the consumer is happy, that's all that ultimately matters.
+But as long as our tests are passing we're happy. 
+And if we have tests around the implementation, we're going to have to update the tests every time we refactor.
 
 Ok so we'll focus our testing on the interface. But `drawEuroMillions` returns random numbers, how we can test for an expected outcome from something nondeterministic?
 
-The answer is... we can't *really.* But we can mitigate against random somewhat though, through sheer volume of tesing.
+The answer is... we can't *really.* But we can mitigate against random through sheer volume of tesing.
 
 If we call the method five times, the odds of receiving a 50 aren't great.
 What if we called it 50 times, or 500 times? Better odds. We'd probably get a 50 at least once.
@@ -371,7 +376,7 @@ We were returning floats all this time and never knew it!
 
 *Know your output*
 
-Returning whole numbers is a requirement we missed in our initial analysis. It's almost too obvious. What this demonstrates is a need to really understand any functionality being leveraged.
+Returning whole numbers is a requirement we missed in our initial analysis. It's almost too obvious. What this demonstrates is a need to really understand any functionality being leveraged which we haven't written.
 
 [*The Math.random() function returns a floating-point, pseudo-random number.*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 
@@ -393,7 +398,7 @@ getRandomNumberUpTo(max) {
     return Math.floor(Math.random() * max) + 1;
 }
 ```
-Ok, all green again. And another test in the suite. This is good as, if we missed the requirement for whole numbers, potentially others who touch this code will too. The test here is an explicit reminder of an implicit requirement.
+Ok, all green again. And another test in the suite. An explicit reminder of an implicit requirement.
 
 *"What's the minumum I need to test to give me confidence?"*
 
@@ -432,17 +437,13 @@ test("...Joe expects to get a 12 or a 1 from the second set if he draws 500 time
 Now we can be more confident as our tests are more specific.
 And we are green.
 
-## Testing Makes You Think
+
 
 Next requirement!
 
 *Joe cannot receive doubles in a set, but it's ok for doubles across the two sets.*
 
-How can we test that there are no duplicates in our results?
-
-*TDD makes you think about your code.*
-
-Through the power of test driven development we are forced to think about how we write our code and our tests, which is great! We could use a filter or a reduce on the array. That would work.
+How can we test that there are no duplicates in our results? We could use a filter or a reduce on the array. That would work.
 
 Let's continue to work with the principle of testing at volume to give higher confidence when testing random numbers.
 Let's write a test.
@@ -514,6 +515,7 @@ to
 *"...Joe cannot receive doubles in a set"*
 
 as we don't need to do anything to ensure the latter half of the sentence.  
+
 Ok, we should be feeling even more confident now.
 
 ## Refactoring Our Tests As We Learn More
@@ -521,7 +523,7 @@ Ok, we should be feeling even more confident now.
 Seeing as though we've started using the principle of testing at volume, let's refactor the other tests to follow suit. We've learnt that only through volume of testing can we really be confident, so let's apply this learning throughout our suite.
 
 ```javascript
-test("...Joe needs the first 5 to be between 1 and 50", function() {
+test("...Joe expects the first 5 to be between 1 and 50", function() {
 
     for(let i = 0; i < 500; i++) {
 
@@ -539,7 +541,7 @@ test("...Joe needs the first 5 to be between 1 and 50", function() {
 
 });
 
-test("...Joe needs the last 2 to be between 1 and 12", function() {
+test("...Joe expects the last 2 to be between 1 and 12", function() {
 
     for(let i = 0; i < 500; i++) {
 
@@ -563,10 +565,8 @@ Now for the final requirement.
 
 *Joe need the balls in a set to be returned in numerical order.*
 
-Write the test, then make it pass.
-
 ```javascript
-test("...Joe need the balls in a set to be returned in numerical order", function() {
+test("...Joe expects the balls in a set to be returned in numerical order", function() {
         
     for(let i = 0; i < 500; i++) {
         
@@ -631,7 +631,7 @@ Feels good!
 
 ## Clean Up Time
 
-Our lottery object looks a bit messy after all that now though. Let's clean it up.
+Our lottery object looks a bit messy after all that now though. We've got one method - `removeDuplicateNumbers` - on it that isn't even being used. Let's clean it up.
 
 ```javascript
 function getRandomNumberUpTo(max) {
@@ -672,7 +672,9 @@ We've removed all methods other than `drawEuroMillions` from the object.
 There's no reason why they need to be public. Now our interface is exactly what we planned at the start.
 
 And hopefully the benefit of just testing the interface, not the implementation, becomes clear now.
-We're able to refactor confidently without breaking anything. As long as the output remains the same our tests will pass. Our tests don't care what's happening behind the scenes.
+We're able to refactor confidently without breaking anything. 
+
+As long as the output remains the same our tests will pass. Our tests don't care what's happening behind the scenes.
 
 *What's the minimum I need to test to give me confidence, **when refactoring**?*
 
@@ -731,8 +733,6 @@ Yes. We've tested all our requirements extensively. And we only import one thing
 * No duplicates (* 500 tests)
 * Sets are in numerical order (* 500 tests)
 
-Do we need to test that the balls are returned set 1 first, set 2 second?
-Not really. The other tests confirm it's working when we take the first five numbers and last two numbers to test individually.
 Feels like we've covered everything.
 
 *Decouple your tests, like you decouple your code*
@@ -753,14 +753,14 @@ to
 And let's do a sweep to make sure we have consistency in conventions used within the code. 
 
 Joe's Euro millions lottery ball generator...  
-...Joe needs to be given 7 balls  
-...Joe needs the first 5 to be between 1 and 50  
-...Joe needs the last 2 to be between 1 and 12  
+...Joe expects to be given 7 balls  
+...Joe expects the first 5 to be between 1 and 50  
+...Joe expects the last 2 to be between 1 and 12  
 ...Joe expects to get whole numbers  
 ...Joe expects to get a 50 or a 1 from the first set if he draws 500 times  
 ...Joe expects to get a 12 or a 1 from the second set if he draws 500 times  
 ...Joe cannot receive doubles in a set  
-...Joe need the balls in each set to be returned in numerical order.
+...Joe expects the balls in each set to be returned in numerical order.
 
 Now the test suite reads like a story; clearly mapping out each requirement and the corresponding live code example to show how it works.
 
@@ -778,10 +778,6 @@ Categorise the user story and requirements into -
 * *What's the interface? How is this thing consumed? And what does it return?*  
 * *What's the data? What does it get initialised with? What are constants? What's going to change?*  
 * *What's the logic it need to achieve the desired effect? What computations does it have to make to give a correct output?*
-
-As you're about to start, remember -
-
-* *It's ok to prototype a concept in code first, particularly if you don't have a clear understanding of it* 
 
 Whilst developing, ask yourself -
 
@@ -802,6 +798,6 @@ _TDD should not be thought of as separate to development, testing code is simply
 
 ## New Requirement Time!
 
-A new requirement has just come in!  
-We now need to add functionality to draw the UK lottery too...  
+A new requirement has just come in! We now need to add functionality to draw the UK lottery too.
+ 
 See if you can repeat the process and build it successfully, good luck!
