@@ -4,11 +4,13 @@ describe("Malone's conversational app...", function() {
 
     it("...Malone expects to start with 'Should you come into Malones?'", function() {
         const game = malones();
-        expect(game.start()).toBe('Should you come into Malones?');
+        for(let i = 0; i < game.questions.length; i++) {
+            expect(game.start()).toBe('Should you come into Malones?');
+        }
     });
 
     it("...Malone expects for each question, the answer 'yes' ends with the same reply -  'Well then come in so!'", function() {
-        const game = malones();
+        let game = malones();
         expect(game.yes()).toBe('Well then come in so!');
     });
 
@@ -18,15 +20,12 @@ describe("Malone's conversational app...", function() {
         expect(game.no()).toBe('Maybe a pint will cheer you up ya miserable git! Come in!');
     });
 
-    it("...Malone expects for each question other than the last, the answer 'no' asks the next question in the sequence", function() {
+    it("...Malone expects the answer 'no' asks the next question in the sequence, until the last question", function() {
         const game = malones();
         for(let i = 0; i < game.questions.length; i++) {
             if(i !== game.questions.length - 1) {
                 const { questionNumber } = game;
                 expect(game.no()).toBe(game.questions[questionNumber + 1]);
-            }
-            else {
-                expect(game.no()).toBe('Maybe a pint will cheer you up ya miserable git! Come in!');
             }
         }
     });
