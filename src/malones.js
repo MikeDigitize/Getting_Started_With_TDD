@@ -40,34 +40,66 @@
  * 
  */
 
-const malones = {
-    questions: [
-        "Should you come into Malones?",
-        "Are you Irish?",
-        "Do you want to be?",
-        "Well, do you like music",
-        "Pizza?",
-        "Ice cream?",
-        "Awesome service?"
-    ],
-    replies: [
-        "Well then come in so!",
-        "Maybe a pint will cheer you up ya miserable git! Come in!"
-    ],
-    questionNumber: 0,
-    start() {
-        return this.questions[this.questionNumber];
-    },
-    yes() {
-        return this.replies[0];
-    },
-    no() {
-        if(this.questionNumber === this.questions.length - 1) {
-            return this.replies[1];
+// const malones = {
+//     questions: [
+//         "Should you come into Malones?",
+//         "Are you Irish?",
+//         "Do you want to be?",
+//         "Well, do you like music",
+//         "Pizza?",
+//         "Ice cream?",
+//         "Awesome service?"
+//     ],
+//     replies: [
+//         "Well then come in so!",
+//         "Maybe a pint will cheer you up ya miserable git! Come in!"
+//     ],
+//     questionNumber: 0,
+//     start() {
+//         return this.questions[this.questionNumber];
+//     },
+//     yes() {
+//         return this.replies[0];
+//     },
+//     no() {
+//         if(this.questionNumber === this.questions.length - 1) {
+//             return this.replies[1];
+//         }
+//         this.questionNumber++;
+//         return this.questions[this.questionNumber];
+//     }
+// };
+
+function malones() {
+    return {
+        questions: [
+            "Should you come into Malones?",
+            "Are you Irish?",
+            "Do you want to be?",
+            "Well, do you like music",
+            "Pizza?",
+            "Ice cream?",
+            "Awesome service?"
+        ],
+        replies: [
+            "Well then come in so!",
+            "Maybe a pint will cheer you up ya miserable git! Come in!"
+        ],
+        questionNumber: 0,
+        start() {
+            return this.questions[this.questionNumber];
+        },
+        yes() {
+            return this.replies[0];
+        },
+        no() {
+            if(this.questionNumber === this.questions.length - 1) {
+                return this.replies[1];
+            }
+            this.questionNumber++;
+            return this.questions[this.questionNumber];
         }
-        this.questionNumber++;
-        return this.questions[this.questionNumber];
     }
-};
+}
 
 module.exports = malones;
