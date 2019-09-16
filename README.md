@@ -8,25 +8,30 @@ Let's start with a hypothetical situation. A ticket has been assigned to us at s
 
 ## The User Story
 
-If this is all that's given to you as a developer, **STOP!** It's not enough to start developing from, and it's important to recognise that. 
-As a developer you need to know who or what is using this functionality, and how exactly is it supposed to work?
+If this is all that's given to you as a developer, **STOP!** It's not enough to start developing from, and it's important to recognise that. As a developer you need to know who or what is using this functionality, and how exactly is it supposed to work?
 
 So let's look at it through the lens of a user and create a user story from the ticket.
 
 *A good user story should tell us who, what and why...*
 
-It turns out this ticket has come from Joe. Joe wants a Euromillons lottery ball generator to pick his numbers for him when he plays the lottery.
+It turns out this ticket has come from Joe. Joe wants a Euromillions lottery ball generator to pick his numbers for him when he plays the lottery. 
 
 ## The Spec
 
-Ok we have a user. We have a consumer. Now we need to understand how this thing works. We need a spec or list of requirements. We should get these as part of the ticket but, if not, it's up to us, so let's take our time to research and list them all out.
+Ok we have a user. We have a consumer. Now we need to understand how this thing works. In 2001 Ron Jeffries wrote about the three Cs of a user story - Card, Conversation, Confirmation. We have the card, now we need to spark some conversation around the story. 
+
+* How will this be utilised?
+* What are the rules of the Euromillions?
+* What do we need to return and in what format?
+
+Conversation like this starts to provoke better understanding of the problem and more user empathy. Now finally we need the confirmation. A spec or list of requirements. This is often referred to as story's acceptance criteria. We should get these as part of the ticket but, if not, it's up to us, so let's take our time to research and list them all out.
 
 What do we need to do to give Joe his Euromillions generator?
 
 1. Joe expects to be given 7 balls
-2. Joe expects the first 5 to be between 1 and 50
-3. Joe expects the last 2 to be between 1 and 12
-4. Joe cannot receive doubles in a set, but it's ok for doubles across the two sets
+2. Joe expects the first 5 to be between 1 and 50 (set 1)
+3. Joe expects the last 2 to be between 1 and 12 (set 2)
+4. Joe cannot receive duplicates in a set, but it's ok for duplicates across the two sets
 5. Joe expects the balls in a set to be returned in numerical order
 
 Ok great, we now have a user and a spec! Now we know what's required we can start to plan how to approach it.
@@ -55,12 +60,11 @@ The data it comes loaded with is -
 * 2 balls
 * the boundaries 1 and 12
 
-
-And the data it returns is an array of balls.
+And the data it returns is an array of numbers.
   
 The logic is - 
 * generate x amount of random numbers between y and z
-* no doubles in a set of numbers
+* no duplicates in a set of numbers
 * balls in a set returned in numerical order
 
 ## Getting Started
@@ -130,12 +134,24 @@ Let's take the first requirement as the test.
 
 *Joe needs to be given 7 balls.*
 
-We can test that the `drawEuroMillions` method gives us an array of 7 items. The test fails so let's write the code.
+We can test that the `drawEuroMillions` method gives us an array of 7 items.  
+
+We can test the array length through a handful of helper methods that Jest provides us with. These are called `matchers`. Jest has an expressive vocabulary of matchers that allow us to write a readable test suite.
 
 ```javascript
+// prefer an explicit matcher
 test("...Joe expects to be given 7 balls", function() {
     expect(lottery.drawEuroMillions()).toHaveLength(7);
 });
+
+// over a generic matcher
+test("...Joe expects to be given 7 balls", function() {
+    expect(lottery.drawEuroMillions().length).toBe(7);
+});
+```
+The test fails so let's write the code.
+
+```javascript
 
 drawEuroMillions() {
     for(let i = 0; i < this.numOfBalls; i++) {
@@ -159,7 +175,7 @@ Next requirement.
 
 *Joe needs the first 5 to be between 1 and 50.*
 
-So here's when we need to start looking at how to generate a random number.
+So here's when we need to start looking at how to generate a random number. As always **use the docs!**
 
 [MDN - JavaScript Math.random().](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 
