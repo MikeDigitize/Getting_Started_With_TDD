@@ -1,5 +1,7 @@
 # Getting Started With TDD
 
+An intro for the junior developers at AO.
+
 Let's start with a hypothetical situation. A ticket has been assigned to us at sprint planning.
 
 ## The Ticket
@@ -14,7 +16,7 @@ So let's look at it through the lens of a user and create a user story from the 
 
 *A good user story should tell us who, what and why...*
 
-It turns out this ticket has come from Joe. Joe wants a Euromillions lottery ball generator to pick his numbers for him when he plays the lottery. 
+Let's say this request has come from Joe. Joe wants a Euromillions lottery ball generator to pick his numbers for him when he plays the lottery. 
 
 ## The Spec
 
