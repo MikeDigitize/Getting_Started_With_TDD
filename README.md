@@ -16,11 +16,11 @@ So let's look at it through the lens of a user and create a user story from the 
 
 *A good user story should tell us who, what and why...*
 
-Let's say this request has come from Joe. Joe wants a Euromillions lottery ball generator to pick his numbers for him when he plays the lottery. 
+Let's say this request has come from Joe. Joe wants a Euromillions lottery ball generator to pick his numbers for him when he plays the lottery. It saves him expending the mental effort of choosing numbers and he feels he has a better chance through a random selection than a manual one.
 
 ## The Spec
 
-Ok we have a user. We have a consumer. Now we need to understand how this thing works. In 2001 Ron Jeffries wrote about the three Cs of a user story - Card, Conversation, Confirmation. We have the card, now we need to spark some conversation around the story. 
+Ok we have a user. We have a goal - ~~to help Joe win the lottery~~ to pick Joe's lottery numbers for him. Now we need to understand how this thing could work. In 2001 Ron Jeffries wrote about the three Cs of a user story - Card, Conversation, Confirmation. We have the card, now we need to spark some conversation around the story. 
 
 * How will this be utilised?
 * What are the rules of the Euromillions?
