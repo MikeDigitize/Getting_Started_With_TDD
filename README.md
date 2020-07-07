@@ -1,6 +1,6 @@
 # Getting Started With TDD
 
-An intro for the junior developers at AO.
+An intro to TDD for the junior developers at AO.
 
 Let's start with a hypothetical situation. A ticket has been assigned to us at sprint planning.
 
